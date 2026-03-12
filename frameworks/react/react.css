@@ -359,6 +359,29 @@ body {
     transform: rotate(90deg);
 }
 
+.fullscreen-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 2px;
+    margin-left: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+}
+
+.fullscreen-btn:hover {
+    transform: scale(1.1);
+    background: rgba(88, 166, 255, 0.1);
+    color: var(--framework-primary);
+}
+
 .project-preview {
     height: 600px;
     background: #f8f9fa;

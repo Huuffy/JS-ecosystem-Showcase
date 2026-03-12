@@ -63,6 +63,9 @@
                         <button class="refresh-btn" onclick="refreshProject('social-feed')" title="Refresh Project">
                             <img src="/assets/images/icons/reload.png" alt="Refresh" class="refresh-icon">
                         </button>
+                        <button class="fullscreen-btn" onclick="toggleFullscreen('social-feed-iframe')" title="View Fullscreen">
+                            ⛶
+                        </button>
                     </div>
                     
                     <div class="project-preview">
@@ -150,6 +153,9 @@
                         <h3>🛒 ShopCore - Advanced Product Discovery</h3>
                         <button class="refresh-btn" onclick="refreshProject('ecommerce-catalog')" title="Refresh Project">
                             <img src="/assets/images/icons/reload.png" alt="Refresh" class="refresh-icon">
+                        </button>
+                        <button class="fullscreen-btn" onclick="toggleFullscreen('ecommerce-catalog-iframe')" title="View Fullscreen">
+                            ⛶
                         </button>
                     </div>
                     
@@ -243,6 +249,9 @@
                         <button class="refresh-btn" onclick="refreshProject('video-streaming')" title="Refresh Project">
                             <img src="/assets/images/icons/reload.png" alt="Refresh" class="refresh-icon">
                         </button>
+                        <button class="fullscreen-btn" onclick="toggleFullscreen('video-streaming-iframe')" title="View Fullscreen">
+                            ⛶
+                        </button>
                     </div>
                     
                     <div class="project-preview">
@@ -332,6 +341,9 @@
                         <h3>📝 CollabEdit - Collaborative Editor</h3>
                         <button class="refresh-btn" onclick="refreshProject('collaborative-editor')" title="Refresh Project">
                             <img src="/assets/images/icons/reload.png" alt="Refresh" class="refresh-icon">
+                        </button>
+                        <button class="fullscreen-btn" onclick="toggleFullscreen('collaborative-editor-iframe')" title="View Fullscreen">
+                            ⛶
                         </button>
                     </div>
                     
@@ -465,6 +477,21 @@
                     setTimeout(() => {
                         iframe.src = currentSrc;
                     }, 100);
+                }
+            }
+
+            function toggleFullscreen(frameId) {
+                const iframe = document.getElementById(frameId);
+                if (!iframe) return;
+                
+                if (iframe.requestFullscreen) {
+                    iframe.requestFullscreen();
+                } else if (iframe.webkitRequestFullscreen) {
+                    iframe.webkitRequestFullscreen();
+                } else if (iframe.msRequestFullscreen) {
+                    iframe.msRequestFullscreen();
+                } else {
+                    window.open(iframe.src, '_blank');
                 }
             }
 
