@@ -7,58 +7,48 @@ function Analytics() {
 
     useEffect(() => {
         setLoading(true);
-        fetch(`http://localhost:5000/api/analytics?range=${timeRange}`)
-            .then(res => res.json())
-            .then(data => {
-                setMetrics(data.metrics || {});
-                setChartData(data.charts || {});
-                setLoading(false);
-            })
-            .catch(error => {
-                console.error('Error fetching analytics:', error);
-                // Fallback to mock data
-                const mockMetrics = {
-                    totalTickets: 1247,
-                    openTickets: 23,
-                    resolvedToday: 15,
-                    avgResponseTime: 2.3,
-                    satisfactionScore: 87,
-                    resolutionRate: 94.2,
-                    firstResponseTime: 1.8,
-                    escalationRate: 5.3,
-                    agentUtilization: 78.5,
-                    knowledgeBaseViews: 3421
-                };
+        // Use mock data directly (no backend on Vercel)
+        const mockMetrics = {
+            totalTickets: 1247,
+            openTickets: 23,
+            resolvedToday: 15,
+            avgResponseTime: 2.3,
+            satisfactionScore: 87,
+            resolutionRate: 94.2,
+            firstResponseTime: 1.8,
+            escalationRate: 5.3,
+            agentUtilization: 78.5,
+            knowledgeBaseViews: 3421
+        };
 
-                const mockChartData = {
-                    ticketTrends: [
-                        { date: '2025-06-21', created: 45, resolved: 42 },
-                        { date: '2025-06-22', created: 38, resolved: 41 },
-                        { date: '2025-06-23', created: 52, resolved: 48 },
-                        { date: '2025-06-24', created: 41, resolved: 45 },
-                        { date: '2025-06-25', created: 47, resolved: 44 },
-                        { date: '2025-06-26', created: 39, resolved: 43 },
-                        { date: '2025-06-27', created: 35, resolved: 38 }
-                    ],
-                    categoryBreakdown: [
-                        { category: 'Authentication', count: 342, percentage: 27.4 },
-                        { category: 'Email', count: 298, percentage: 23.9 },
-                        { category: 'Database', count: 187, percentage: 15.0 },
-                        { category: 'UI/UX', count: 156, percentage: 12.5 },
-                        { category: 'Performance', count: 134, percentage: 10.7 },
-                        { category: 'Other', count: 130, percentage: 10.4 }
-                    ],
-                    priorityDistribution: [
-                        { priority: 'High', count: 89, color: '#f85149' },
-                        { priority: 'Medium', count: 456, color: '#1f6feb' },
-                        { priority: 'Low', count: 702, color: '#238636' }
-                    ]
-                };
+        const mockChartData = {
+            ticketTrends: [
+                { date: '2025-06-21', created: 45, resolved: 42 },
+                { date: '2025-06-22', created: 38, resolved: 41 },
+                { date: '2025-06-23', created: 52, resolved: 48 },
+                { date: '2025-06-24', created: 41, resolved: 45 },
+                { date: '2025-06-25', created: 47, resolved: 44 },
+                { date: '2025-06-26', created: 39, resolved: 43 },
+                { date: '2025-06-27', created: 35, resolved: 38 }
+            ],
+            categoryBreakdown: [
+                { category: 'Authentication', count: 342, percentage: 27.4 },
+                { category: 'Email', count: 298, percentage: 23.9 },
+                { category: 'Database', count: 187, percentage: 15.0 },
+                { category: 'UI/UX', count: 156, percentage: 12.5 },
+                { category: 'Performance', count: 134, percentage: 10.7 },
+                { category: 'Other', count: 130, percentage: 10.4 }
+            ],
+            priorityDistribution: [
+                { priority: 'High', count: 89, color: '#f85149' },
+                { priority: 'Medium', count: 456, color: '#1f6feb' },
+                { priority: 'Low', count: 702, color: '#238636' }
+            ]
+        };
 
-                setMetrics(mockMetrics);
-                setChartData(mockChartData);
-                setLoading(false);
-            });
+        setMetrics(mockMetrics);
+        setChartData(mockChartData);
+        setLoading(false);
     }, [timeRange]);
 
     const formatNumber = (num) => {

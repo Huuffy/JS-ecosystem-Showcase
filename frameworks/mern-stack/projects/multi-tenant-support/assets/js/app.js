@@ -214,13 +214,14 @@ function Dashboard() {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    fetch("http://localhost:5000/api/analytics")
-      .then((res) => res.json())
-      .then((data) => {
-        setStats(data);
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
+    // Mock data for demo (no backend needed)
+    setStats({
+      totalTickets: 1247,
+      openTickets: 23,
+      resolvedToday: 15,
+      avgResponseTime: "2.3h"
+    });
+    setLoading(false);
   }, []);
   if (loading) return <p>Loading dashboard...</p>;
   if (!stats) return <p>Unable to load dashboard data.</p>;
@@ -259,32 +260,28 @@ function TicketSystem() {
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
-    fetch("http://localhost:5000/api/tickets")
-      .then((res) => res.json())
-      .then((data) => {
-        setTickets(data);
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
+    // Mock data for demo
+    setTickets([
+      { id: 1, title: "Login issue on mobile", description: "Users unable to login via mobile browser", status: "Open", priority: "high", category: "Authentication" },
+      { id: 2, title: "Email notifications delayed", description: "Email alerts arriving 30+ minutes late", status: "In Progress", priority: "medium", category: "Email" },
+      { id: 3, title: "Dashboard loading slow", description: "Dashboard takes 10s+ to load with large datasets", status: "Open", priority: "high", category: "Performance" },
+      { id: 4, title: "Password reset not working", description: "Reset link expires before email arrives", status: "Resolved", priority: "high", category: "Authentication" },
+    ]);
+    setLoading(false);
   }, []);
 
   function createTicket(e) {
     e.preventDefault();
     if (!form.title.trim() || !form.description.trim()) return;
     setSaving(true);
-    fetch("http://localhost:5000/api/tickets", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...form }),
-    })
-      .then((res) => res.json())
-      .then((newTicket) => {
-        setTickets((prev) => [newTicket, ...prev]);
-        setForm({ title: "", description: "", priority: "medium", category: "General" });
-        setShowCreate(false);
-      })
-      .finally(() => setSaving(false));
+    // Mock create ticket (no backend)
+    setTimeout(() => {
+      const newTicket = { id: Date.now(), ...form, status: "Open" };
+      setTickets((prev) => [newTicket, ...prev]);
+      setForm({ title: "", description: "", priority: "medium", category: "General" });
+      setShowCreate(false);
+      setSaving(false);
+    }, 500);
   }
 
   if (loading) return <p>Loading tickets...</p>;
@@ -396,14 +393,10 @@ function Chatbot() {
   const messagesEndRef = React.useRef(null);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/chatbot")
-      .then((res) => res.json())
-      .then((msgs) => setMessages(msgs))
-      .catch(() =>
-        setMessages([
-          { id: 0, text: "Welcome! Start typing your message.", sender: "bot", timestamp: new Date() },
-        ])
-      );
+    // Mock initial message (no backend)
+    setMessages([
+      { id: 0, text: "Welcome! How can I help you today?", sender: "bot", timestamp: new Date() },
+    ]);
   }, []);
 
   useEffect(() => {
@@ -418,23 +411,16 @@ function Chatbot() {
     setInput("");
     setTyping(true);
 
-    fetch("http://localhost:5000/api/chatbot", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(userMsg),
-    })
-      .then(() => {
-        setTimeout(() => {
-          const botReply = {
-            id: Date.now() + 1,
-            text: "Thank you for your message! Our support team will be with you shortly.",
-            sender: "bot",
-          };
-          setMessages((prev) => [...prev, botReply]);
-          setTyping(false);
-        }, 1500);
-      })
-      .catch(() => setTyping(false));
+    // Mock bot reply (no backend)
+    setTimeout(() => {
+      const botReply = {
+        id: Date.now() + 1,
+        text: "Thank you for your message! Our support team will be with you shortly.",
+        sender: "bot",
+      };
+      setMessages((prev) => [...prev, botReply]);
+      setTyping(false);
+    }, 1500);
   }
 
   return (
@@ -484,32 +470,27 @@ function KnowledgeBase() {
   const [saving, setSaving] = React.useState(false);
 
   React.useEffect(() => {
-    setLoading(true);
-    fetch("http://localhost:5000/api/articles")
-      .then((res) => res.json())
-      .then((data) => {
-        setArticles(data);
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
+    // Mock articles data (no backend)
+    setArticles([
+      { id: 1, title: "Getting Started Guide", content: "Learn how to set up your account and navigate the support platform. This comprehensive guide covers account creation, profile setup, and tips for efficient ticket management.", author: "Admin", created: "2025-06-20" },
+      { id: 2, title: "Multi-Tenant Configuration", content: "How to configure tenant-specific settings including branding, custom domains, and access control. Each tenant can have their own theme, logo, and notification preferences.", author: "DevOps Team", created: "2025-06-18" },
+      { id: 3, title: "API Integration Reference", content: "Complete API reference for integrating with external tools and services. Covers authentication, endpoints, rate limits, and webhook configuration for real-time updates.", author: "API Team", created: "2025-06-15" },
+    ]);
+    setLoading(false);
   }, []);
 
   function createArticle(e) {
     e.preventDefault();
     if (!form.title.trim() || !form.content.trim()) return;
     setSaving(true);
-    fetch("http://localhost:5000/api/articles", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    })
-      .then((res) => res.json())
-      .then((newArticle) => {
-        setArticles((prev) => [newArticle, ...prev]);
-        setForm({ title: "", content: "" });
-        setShowCreate(false);
-      })
-      .finally(() => setSaving(false));
+    // Mock create article (no backend)
+    setTimeout(() => {
+      const newArticle = { id: Date.now(), ...form, author: "You", created: new Date().toISOString() };
+      setArticles((prev) => [newArticle, ...prev]);
+      setForm({ title: "", content: "" });
+      setShowCreate(false);
+      setSaving(false);
+    }, 500);
   }
 
   if (loading) return <p>Loading articles...</p>;
