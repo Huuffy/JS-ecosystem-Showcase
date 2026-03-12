@@ -121,3 +121,10 @@ Viraj Bhatia - [LinkedIn](https://www.linkedin.com/in/viraj--bhatia/)
 [HTML5-url]: https://developer.mozilla.org/en-US/docs/Web/HTML
 [CSS3]: https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white
 [CSS3-url]: https://developer.mozilla.org/en-US/docs/Web/CSS
+
+<div align="center">
+
+
+![footer](https://capsule-render.vercel.app/api?type=waving&color=A855F7&height=100&section=footer)
+
+</div>
