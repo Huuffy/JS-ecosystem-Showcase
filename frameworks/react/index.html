@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React - JavaScript Frameworks</title>
+    <link rel="stylesheet" href="react.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body class="dark-theme">
+    <!-- Same header as homepage -->
+    <header class="main-header">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <a href="../../" class="nav-home-link">
+                    <h1>JS Frameworks</h1>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="framework-page">
+        <section class="framework-intro fade-in">
+            <div class="intro-content">
+                <div class="framework-logo">
+                    <img src="../../assets/images/frameworks/react.png" alt="React Logo" class="page-framework-logo">
+                </div>
+                <h1>React Industrial Use Cases</h1>
+                <p>Demonstrating React expertise through real-world implementation code for enterprise applications.</p>
+            </div>
+        </section>
+
+        <section class="use-cases">
+            <!-- Use Case 1: Social Media Real-Time Feed -->
+            <article class="use-case">
+                <h2>Social Media Real-Time Feed</h2>
+                
+                <div class="use-case-description">
+                    <p>Building dynamic social media feeds that update in real-time as users interact with content. This use case demonstrates React's ability to handle live data streams, manage complex state updates, and provide smooth user experiences with thousands of posts.</p>
+                    
+                    <div class="project-details">
+                        <h4>Key Features & React Implementation:</h4>
+                        <ul class="feature-list">
+                            <li>Real-time social media feed with live updates and WebSocket integration</li>
+                            <li>Optimistic UI updates for instant feedback before server confirmation</li>
+                            <li>Infinite scrolling to efficiently handle large datasets</li>
+                            <li>Live emoji reactions and image upload support</li>
+                            <li>React's useState and useEffect hooks manage real-time state and side effects</li>
+                            <li>Custom hooks encapsulate WebSocket logic and feed management</li>
+                            <li>React Context provides global state management for posts and user interactions</li>
+                            <li>Component-based architecture with modular, reusable components</li>
+                            <li>Efficient rendering with React's virtual DOM for thousands of posts</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="project-showcase">
+                    <div class="project-header">
+                        <h3>🚀 SocialStream - Live Feed Platform</h3>
+                        <button class="refresh-btn" onclick="refreshProject('social-feed')" title="Refresh Project">
+                            <img src="../../assets/images/icons/reload.png" alt="Refresh" class="refresh-icon">
+                        </button>
+                    </div>
+                    
+                    <div class="project-preview">
+                        <iframe 
+                            id="social-feed-iframe"
+                            src="projects/social-feed/index.html" 
+                            class="project-iframe"
+                            loading="lazy"
+                            title="SocialStream Live Demo"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    
+                    <div class="project-description">
+                        <p><strong>How React is Used:</strong> React is used extensively with hooks like useState and useEffect to manage real-time data and UI updates. Custom hooks encapsulate WebSocket communication. React Context provides global state management. The component-based architecture ensures modularity and reusability. Optimistic UI updates and efficient rendering via virtual DOM enhance performance.</p>
+                    </div>
+                    
+                    <div class="project-features">
+                        <span class="feature-tag">WebSocket Integration</span>
+                        <span class="feature-tag">Infinite Scroll</span>
+                        <span class="feature-tag">Optimistic Updates</span>
+                        <span class="feature-tag">Live Reactions</span>
+                        <span class="feature-tag">Image Upload</span>
+                    </div>
+                </div>
+
+                <div class="code-section">
+                    <div class="code-header">
+                        <span class="code-title">React Hook for Real-Time Feed Management</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+                    </div>
+                    <div class="code-scroll">
+                        <pre><code class="language-jsx">const useRealTimeFeed = (userId) => {
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const socketRef = useRef(null);
+
+  useEffect(() => {
+    socketRef.current = io('wss://api.socialstream.com');
+    
+    socketRef.current.on('newPost', (post) => {
+      setPosts(prevPosts => [post, ...prevPosts.slice(0, 99)]);
+    });
+
+    socketRef.current.on('postUpdate', (updatedPost) => {
+      setPosts(prevPosts => 
+        prevPosts.map(p => p.id === updatedPost.id ? updatedPost : p)
+      );
+    });
+
+    return () => socketRef.current?.disconnect();
+  }, [userId]);
+
+  return { posts, loading, addOptimisticPost, reactToPost };
+};</code></pre>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Use Case 2: E-Commerce Dynamic Product Catalog -->
+            <article class="use-case">
+                <h2>E-Commerce Dynamic Product Catalog</h2>
+                
+                <div class="use-case-description">
+                    <p>Advanced product discovery system with intelligent filtering, search, and recommendation algorithms. Demonstrates React's performance optimization techniques for handling large datasets and complex user interactions in e-commerce environments.</p>
+                    
+                    <div class="project-details">
+                        <h4>Key Features & React Implementation:</h4>
+                        <ul class="feature-list">
+                            <li>Advanced product discovery with filtering, sorting, and search capabilities</li>
+                            <li>Shopping cart management with global state using React Context</li>
+                            <li>Infinite scroll for seamless product loading</li>
+                            <li>Responsive grid layout for various screen sizes</li>
+                            <li>Custom hooks for data fetching and state management</li>
+                            <li>React's useState and useEffect hooks handle dynamic UI updates</li>
+                            <li>Component composition for reusable ProductCard and ProductList components</li>
+                            <li>Event handling for user interactions like adding to cart and applying filters</li>
+                            <li>Performance optimization with memoization and efficient rendering</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="project-showcase">
+                    <div class="project-header">
+                        <h3>🛒 ShopCore - Advanced Product Discovery</h3>
+                        <button class="refresh-btn" onclick="refreshProject('ecommerce-catalog')" title="Refresh Project">
+                            <img src="../../assets/images/icons/reload.png" alt="Refresh" class="refresh-icon">
+                        </button>
+                    </div>
+                    
+                    <div class="project-preview">
+                        <iframe 
+                            id="ecommerce-catalog-iframe"
+                            src="projects/ecommerce-catalog/public/index.html" 
+                            class="project-iframe"
+                            loading="lazy"
+                            title="ShopCore E-Commerce Demo"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    
+                    <div class="project-description">
+                        <p><strong>How React is Used:</strong> React Context API manages global state for products, filters, and cart. useState and useEffect handle dynamic UI changes. Custom hooks abstract data fetching and infinite scroll logic. Component composition creates reusable UI elements. Event handling manages user interactions. Performance is optimized with memoization and efficient rendering.</p>
+                    </div>
+                    
+                    <div class="project-features">
+                        <span class="feature-tag">Virtual Scrolling</span>
+                        <span class="feature-tag">Smart Filters</span>
+                        <span class="feature-tag">Real-time Search</span>
+                        <span class="feature-tag">Cart Management</span>
+                        <span class="feature-tag">Responsive Grid</span>
+                    </div>
+                </div>
+
+                <div class="code-section">
+                    <div class="code-header">
+                        <span class="code-title">React Context for E-Commerce State Management</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+                    </div>
+                    <div class="code-scroll">
+                        <pre><code class="language-jsx">function ProductsProvider({ children }) {
+  const [cart, setCart] = useState([]);
+  const [filters, setFilters] = useState({});
+  const [search, setSearch] = useState('');
+
+  const addToCart = (product) => {
+    setCart(prev => [...prev, product]);
+  };
+
+  const filteredProducts = useMemo(() => {
+    return products.filter(product => {
+      const matchesSearch = product.name.toLowerCase()
+        .includes(search.toLowerCase());
+      const matchesCategory = !filters.category || 
+        product.category === filters.category;
+      return matchesSearch && matchesCategory;
+    });
+  }, [products, search, filters]);
+
+  return (
+    <ProductsContext.Provider value={{
+      cart, addToCart, filters, setFilters, search, setSearch
+    }}>
+      {children}
+    </ProductsContext.Provider>
+  );
+}</code></pre>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Use Case 3: Video Streaming Platform -->
+            <article class="use-case">
+                <h2>Video Streaming Platform</h2>
+                
+                <div class="use-case-description">
+                    <p>Custom video player with playlist management, favorites, and shuffle functionality. Demonstrates React's ability to handle media playback, user interactions, and dynamic UI updates with 26 mobile gaming videos.</p>
+                    
+                    <div class="project-details">
+                        <h4>Key Features & React Implementation:</h4>
+                        <ul class="feature-list">
+                            <li>Custom video player with playlist management and favorites system</li>
+                            <li>Integration with YouTube for real video playback</li>
+                            <li>Category filtering and search with debounced input</li>
+                            <li>Shuffle functionality for playlist variety</li>
+                            <li>React Context and custom hooks manage video state and user preferences</li>
+                            <li>useState and useEffect hooks handle media events and UI updates</li>
+                            <li>Component-based design for modular and maintainable code</li>
+                            <li>Responsive design for seamless experience across devices</li>
+                            <li>Custom controls replacing YouTube's default UI for better UX</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="project-showcase">
+                    <div class="project-header">
+                        <h3>🎬 StreamFlix - Video Streaming</h3>
+                        <button class="refresh-btn" onclick="refreshProject('video-streaming')" title="Refresh Project">
+                            <img src="../../assets/images/icons/reload.png" alt="Refresh" class="refresh-icon">
+                        </button>
+                    </div>
+                    
+                    <div class="project-preview">
+                        <iframe 
+                            id="video-streaming-iframe"
+                            src="projects/video-streaming/index.html" 
+                            class="project-iframe"
+                            loading="lazy"
+                            title="StreamFlix Video Streaming Demo"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    
+                    <div class="project-description">
+                        <p><strong>How React is Used:</strong> React Context and custom hooks manage video playback state, playlist, and user preferences. useState and useEffect handle media events and UI updates. Component-based design ensures modularity. Custom controls replace default YouTube UI for better user experience. Responsive design adapts to various devices.</p>
+                    </div>
+                    
+                    <div class="project-features">
+                        <span class="feature-tag">YouTube Integration</span>
+                        <span class="feature-tag">Playlist Management</span>
+                        <span class="feature-tag">Favorites System</span>
+                        <span class="feature-tag">Category Filtering</span>
+                        <span class="feature-tag">Search & Shuffle</span>
+                    </div>
+                </div>
+
+                <div class="code-section">
+                    <div class="code-header">
+                        <span class="code-title">React Video Context with Custom Hooks</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+                    </div>
+                    <div class="code-scroll">
+                        <pre><code class="language-jsx">function VideoProvider({ children }) {
+  const [videos] = useState(gameplayVideos);
+  const [currentVideo, setCurrentVideo] = useState(videos[0]);
+  const [favorites, setFavorites] = useState([]);
+
+  const addToFavorites = (video) => {
+    if (!favorites.find(fav => fav.id === video.id)) {
+      setFavorites(prev => [...prev, video]);
+    }
+  };
+
+  const shufflePlaylist = () => {
+    const shuffled = [...videos].sort(() => Math.random() - 0.5);
+    setCurrentVideo(shuffled[0]);
+  };
+
+  return (
+    <VideoContext.Provider value={{
+      videos, currentVideo, setCurrentVideo, 
+      favorites, addToFavorites, shufflePlaylist
+    }}>
+      {children}
+    </VideoContext.Provider>
+  );
+}</code></pre>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Use Case 4: Collaborative Editor -->
+            <article class="use-case">
+                <h2>Real-Time Collaborative Editor</h2>
+                
+                <div class="use-case-description">
+                    <p>Industrial-grade collaborative document editor with rich text formatting, live cursors, comments, version history, and sharing. Demonstrates advanced React patterns including useReducer, custom hooks, and real-time data synchronization for enterprise applications.</p>
+                    
+                    <div class="project-details">
+                        <h4>Key Features & React Implementation:</h4>
+                        <ul class="feature-list">
+                            <li>Real-time collaborative document editing with live cursor tracking</li>
+                            <li>Rich text formatting with toggleable buttons for persistent styles</li>
+                            <li>Advanced state management using useReducer and Context API</li>
+                            <li>Custom hooks for collaboration logic, presence, and comments</li>
+                            <li>Version history with preview and restore capabilities</li>
+                            <li>Comment system with threading, replies, and resolution tracking</li>
+                            <li>Document sharing with permission management</li>
+                            <li>Keyboard shortcuts for power users</li>
+                            <li>Auto-save functionality to prevent data loss</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="project-showcase">
+                    <div class="project-header">
+                        <h3>📝 CollabEdit - Collaborative Editor</h3>
+                        <button class="refresh-btn" onclick="refreshProject('collaborative-editor')" title="Refresh Project">
+                            <img src="../../assets/images/icons/reload.png" alt="Refresh" class="refresh-icon">
+                        </button>
+                    </div>
+                    
+                    <div class="project-preview">
+                        <iframe 
+                            id="collaborative-editor-iframe"
+                            src="projects/collaborative-editor/index.html" 
+                            class="project-iframe"
+                            loading="lazy"
+                            title="CollabEdit Collaborative Editor Demo"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    
+                    <div class="project-description">
+                        <p><strong>How React is Used:</strong> Advanced React patterns like useReducer and Context API manage complex document state and collaboration. Custom hooks encapsulate real-time collaboration logic, presence, and comments. ContentEditable divs enable rich text editing with toggleable formatting. Keyboard shortcuts and auto-save enhance usability. The architecture supports enterprise-level features and scalability.</p>
+                    </div>
+                    
+                    <div class="project-features">
+                        <span class="feature-tag">Real-time Collaboration</span>
+                        <span class="feature-tag">Rich Text Editing</span>
+                        <span class="feature-tag">Live User Presence</span>
+                        <span class="feature-tag">Comments & Threading</span>
+                        <span class="feature-tag">Version Control</span>
+                        <span class="feature-tag">Document Sharing</span>
+                    </div>
+                </div>
+
+                <div class="code-section">
+                    <div class="code-header">
+                        <span class="code-title">useReducer for Complex Document State</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+                    </div>
+                    <div class="code-scroll">
+                        <pre><code class="language-jsx">function documentReducer(state, action) {
+  switch (action.type) {
+    case 'SET_CONTENT':
+      return { ...state, content: action.payload };
+    case 'ADD_USER':
+      return { 
+        ...state, 
+        activeUsers: [...state.activeUsers.filter(u => u.id !== action.payload.id), action.payload]
+      };
+    case 'ADD_COMMENT':
+      return { ...state, comments: [...state.comments, action.payload] };
+    case 'UNDO':
+      if (state.undoStack.length > 0) {
+        const lastState = state.undoStack[state.undoStack.length - 1];
+        return {
+          ...state, content: lastState,
+          undoStack: state.undoStack.slice(0, -1),
+          redoStack: [...state.redoStack, state.content]
+        };
+      }
+      return state;
+    default: return state;
+  }
+}</code></pre>
+                    </div>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <!-- Pixel Trail Component -->
+    <div class="pixel-trail-container"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-jsx.min.js"></script>
+    
+    <script>
+            // Enhanced cursor tracking for dot grid
+            document.addEventListener('mousemove', (e) => {
+                const x = (e.clientX / window.innerWidth) * 100;
+                const y = (e.clientY / window.innerHeight) * 100;
+                
+                document.documentElement.style.setProperty('--mouse-x', x + '%');
+                document.documentElement.style.setProperty('--mouse-y', y + '%');
+            });
+
+            // Fixed pixel trail with length control and speed adaptation
+            let lastMouseX = 0;
+            let lastMouseY = 0;
+            let pixelArray = [];
+            const MAX_PIXELS = 25; // Limit to ~500px trail (25 pixels * 20px spacing)
+
+            document.addEventListener('mousemove', (e) => {
+                const container = document.querySelector('.pixel-trail-container');
+                if (!container) return;
+
+                // Calculate speed
+                const deltaX = e.clientX - lastMouseX;
+                const deltaY = e.clientY - lastMouseY;
+                const speed = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+                // Adjust pixel creation based on speed
+                let pixelsToCreate = 1;
+                if (speed > 50) {
+                    pixelsToCreate = Math.min(3, Math.floor(speed / 25)); // Fast movement = fewer pixels
+                } else if (speed > 10) {
+                    pixelsToCreate = 2; // Medium movement
+                }
+
+                for (let i = 0; i < pixelsToCreate; i++) {
+                    // Remove oldest pixels if we exceed max length
+                    if (pixelArray.length >= MAX_PIXELS) {
+                        const oldPixel = pixelArray.shift();
+                        if (oldPixel && oldPixel.parentNode) {
+                            oldPixel.parentNode.removeChild(oldPixel);
+                        }
+                    }
+
+                    const pixel = document.createElement('div');
+                    pixel.className = 'pixel-trail-dot';
+                    
+                    // Position with slight randomness
+                    pixel.style.left = e.clientX + (Math.random() - 0.5) * 6 + 'px';
+                    pixel.style.top = e.clientY + (Math.random() - 0.5) * 6 + 'px';
+                    
+                    // Adjust animation duration based on speed
+                    const animationDuration = speed > 30 ? 0.8 : 1.2;
+                    pixel.style.animationDuration = animationDuration + 's';
+                    
+                    container.appendChild(pixel);
+                    pixelArray.push(pixel);
+                    
+                    // Remove pixel after animation with cleanup
+                    setTimeout(() => {
+                        if (pixel.parentNode) {
+                            pixel.parentNode.removeChild(pixel);
+                            const index = pixelArray.indexOf(pixel);
+                            if (index > -1) pixelArray.splice(index, 1);
+                        }
+                    }, animationDuration * 1000);
+                }
+
+                lastMouseX = e.clientX;
+                lastMouseY = e.clientY;
+            });
+
+            function refreshProject(projectName) {
+                const iframe = document.getElementById(`${projectName}-iframe`);
+                if (iframe) {
+                    const currentSrc = iframe.src;
+                    iframe.src = '';
+                    setTimeout(() => {
+                        iframe.src = currentSrc;
+                    }, 100);
+                }
+            }
+
+            function copyCode(button) {
+                const codeBlock = button.closest('.code-section').querySelector('code');
+                const text = codeBlock.textContent;
+                navigator.clipboard.writeText(text).then(() => {
+                    button.textContent = 'Copied!';
+                    button.classList.add('copied');
+                    setTimeout(() => {
+                        button.textContent = 'Copy Code';
+                        button.classList.remove('copied');
+                    }, 2000);
+                });
+            }
+    </script>
+</body>
+</html>

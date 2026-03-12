@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MERN Stack - JavaScript Frameworks Showcase</title>
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="mern-stack.css">
+</head>
+<body>
+    <div class="framework-intro">
+        <div class="framework-logo">
+            <img src="../../assets/images/frameworks/mern-stack.svg" alt="MERN Stack Logo" class="page-framework-logo">
+        </div>
+        <h1>MERN Stack</h1>
+        <p>Full-stack JavaScript development with MongoDB, Express.js, React, and Node.js for building scalable web applications with unified JavaScript ecosystem.</p>
+    </div>
+
+    <div class="use-cases">
+        <!-- Use Case 1: Multi-Tenant SaaS Customer Support Platform -->
+        <div class="use-case">
+            <h2>Multi-Tenant SaaS Customer Support Platform</h2>
+            <div class="use-case-description">
+                <p>Enterprise customer support system with multi-tenancy, advanced ticketing, and AI-powered automation for service companies managing multiple clients with complete data isolation and custom branding.</p>
+                <div class="project-details">
+                    <h4>Key Features & MERN Stack Implementation:</h4>
+                    <ul class="feature-list">
+                        <li><strong>MongoDB:</strong> Multi-tenant data isolation with database-per-tenant architecture and flexible document storage</li>
+                        <li><strong>Express.js:</strong> Tenant-aware middleware and dynamic routing based on subdomain with comprehensive API design</li>
+                        <li><strong>React:</strong> Dynamic theming and white-label customization per tenant with real-time UI updates</li>
+                        <li><strong>Node.js:</strong> Background job processing with Bull Queue for automated workflows and AI model integration</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="project-showcase">
+                <div class="project-header">
+                    <h3>Live Multi-Tenant Support Platform</h3>
+                    <button class="refresh-btn" onclick="refreshProject('multi-tenant-support')">
+                        <img src="../../assets/images/refresh.svg" alt="Refresh" class="refresh-icon">
+                    </button>
+                </div>
+                <div class="project-preview">
+                    <iframe src="projects/multi-tenant-support/index.html" class="project-iframe" id="multi-tenant-support-frame"></iframe>
+                </div>
+                <div class="project-description">
+                    <p><strong>How MERN Stack is Used:</strong> MongoDB provides flexible multi-tenant data architecture, Express.js handles tenant resolution and API routing, React delivers dynamic tenant-specific interfaces, and Node.js processes background jobs and AI chatbot responses in real-time.</p>
+                </div>
+                <div class="project-features">
+                    <span class="feature-tag">Multi-Tenancy</span>
+                    <span class="feature-tag">AI Chatbot</span>
+                    <span class="feature-tag">Real-time Updates</span>
+                    <span class="feature-tag">Custom Branding</span>
+                    <span class="feature-tag">Advanced Analytics</span>
+                </div>
+            </div>
+            
+            <div class="code-section">
+                <div class="code-header">
+                    <span class="code-title">MERN Stack Implementation</span>
+                    <button class="copy-btn" onclick="copyCode('mern-code-1')">Copy Code</button>
+                </div>
+                <div class="code-scroll">
+                    <pre id="mern-code-1"><code>// MongoDB Tenant Model with Multi-tenancy
+const tenantSchema = new mongoose.Schema({
+  id: { type: String, unique: true, required: true },
+  name: { type: String, required: true },
+  domain: { type: String, unique: true },
+  settings: {
+    theme: String,
+    colors: {
+      primary: String,
+      secondary: String
+    },
+    features: [String]
+  },
+  subscription: {
+    plan: String,
+    status: String,
+    userLimit: Number
+  }
+}, { timestamps: true });
+
+// Express.js Tenant Middleware
+const tenantMiddleware = async (req, res, next) => {
+  const subdomain = req.headers.host.split('.')[0];
+  const tenant = await Tenant.findOne({ domain: subdomain });
+  if (!tenant) return res.status(404).json({ error: 'Tenant not found' });
+  req.tenant = tenant;
+  next();
+};
+
+// React Tenant Context and Dynamic Theming
+const TenantContext = createContext();
+function TenantProvider({ children }) {
+  const [tenant, setTenant] = useState(null);
+  
+  const applyTheme = (tenantData) => {
+    document.documentElement.setAttribute('data-tenant', tenantData.theme);
+    document.documentElement.style.setProperty('--primary', tenantData.colors.primary);
+  };
+  
+  return (
+    &lt;TenantContext.Provider value={{ tenant, setTenant, applyTheme }}&gt;
+      {children}
+    &lt;/TenantContext.Provider&gt;
+  );
+}
+
+// Node.js Background Job Processing
+const Queue = require('bull');
+const ticketQueue = new Queue('ticket processing');
+
+ticketQueue.process('ai-response', async (job) => {
+  const { ticketId, message } = job.data;
+  const aiResponse = await generateAIResponse(message);
+  await Ticket.findByIdAndUpdate(ticketId, {
+    $push: { messages: { content: aiResponse, type: 'bot' }}
+  });
+  io.to(ticketId).emit('new-message', aiResponse);
+});</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Use Case 2: Enterprise Document Management & Workflow System -->
+        <div class="use-case">
+            <h2>Enterprise Document Management & Workflow System</h2>
+            <div class="use-case-description">
+                <p>Corporate document lifecycle management with automated workflows, digital signatures, and compliance tracking for large organizations requiring secure document processing and approval workflows.</p>
+                <div class="project-details">
+                    <h4>Key Features & MERN Stack Implementation:</h4>
+                    <ul class="feature-list">
+                        <li><strong>MongoDB:</strong> GridFS for large file storage with metadata indexing and full-text search capabilities</li>
+                        <li><strong>Express.js:</strong> File upload handling with streaming and progress tracking, plus comprehensive API design</li>
+                        <li><strong>React:</strong> Drag-and-drop document interface with PDF viewer and annotation tools</li>
+                        <li><strong>Node.js:</strong> Document processing pipelines with image/PDF manipulation and workflow automation</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="project-showcase">
+                <div class="project-header">
+                    <h3>Live Document Management System</h3>
+                    <button class="refresh-btn" onclick="refreshProject('document-management')">
+                        <img src="../../assets/images/refresh.svg" alt="Refresh" class="refresh-icon">
+                    </button>
+                </div>
+                <div class="project-preview">
+                    <iframe src="projects/document-management/index.html" class="project-iframe" id="document-management-frame"></iframe>
+                </div>
+                <div class="project-description">
+                    <p><strong>How MERN Stack is Used:</strong> MongoDB GridFS handles large file storage and metadata, Express.js manages file uploads with streaming, React provides intuitive document management interface, and Node.js processes documents and automates approval workflows.</p>
+                </div>
+                <div class="project-features">
+                    <span class="feature-tag">Document Storage</span>
+                    <span class="feature-tag">Workflow Automation</span>
+                    <span class="feature-tag">Digital Signatures</span>
+                    <span class="feature-tag">Version Control</span>
+                    <span class="feature-tag">Audit Trail</span>
+                </div>
+            </div>
+            
+            <div class="code-section">
+                <div class="code-header">
+                    <span class="code-title">Document Processing Implementation</span>
+                    <button class="copy-btn" onclick="copyCode('mern-code-2')">Copy Code</button>
+                </div>
+                <div class="code-scroll">
+                    <pre id="mern-code-2"><code>// MongoDB GridFS for File Storage
+const mongoose = require('mongoose');
+const Grid = require('gridfs-stream');
+
+const conn = mongoose.createConnection(mongoURI);
+let gfs;
+conn.once('open', () => {
+  gfs = Grid(conn.db, mongoose.mongo);
+  gfs.collection('documents');
+});
+
+// Express.js File Upload with Multer and GridFS
+const multer = require('multer');
+const GridFSStorage = require('multer-gridfs-storage');
+
+const storage = new GridFSStorage({
+  url: mongoURI,
+  file: (req, file) => ({
+    filename: `${Date.now()}-${file.originalname}`,
+    bucketName: 'documents',
+    metadata: {
+      uploadedBy: req.user.id,
+      department: req.body.department,
+      version: 1
+    }
+  })
+});
+
+const upload = multer({ storage });
+
+// React Document Upload Component
+function DocumentUpload() {
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [dragActive, setDragActive] = useState(false);
+  
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setDragActive(false);
+    const files = e.dataTransfer.files;
+    uploadFiles(files);
+  };
+  
+  const uploadFiles = async (files) => {
+    const formData = new FormData();
+    Array.from(files).forEach(file => formData.append('documents', file));
+    
+    const xhr = new XMLHttpRequest();
+    xhr.upload.onprogress = (e) => {
+      setUploadProgress((e.loaded / e.total) * 100);
+    };
+    
+    xhr.onload = () => {
+      if (xhr.status === 200) {
+        const response = JSON.parse(xhr.responseText);
+        onUploadComplete(response.documents);
+      }
+    };
+    
+    xhr.open('POST', '/api/documents/upload');
+    xhr.send(formData);
+  };
+}
+
+// Node.js Document Processing Pipeline
+const sharp = require('sharp');
+const pdf2pic = require('pdf2pic');
+
+const processDocument = async (fileId) => {
+  const file = await gfs.files.findOne({ _id: fileId });
+  
+  if (file.contentType.includes('image')) {
+    // Generate thumbnails for images
+    const readStream = gfs.createReadStream({ _id: fileId });
+    const thumbnail = await sharp(readStream)
+      .resize(200, 200)
+      .jpeg({ quality: 80 })
+      .toBuffer();
+    
+    // Save thumbnail to GridFS
+    const writeStream = gfs.createWriteStream({
+      filename: `thumb_${file.filename}`,
+      metadata: { originalId: fileId, type: 'thumbnail' }
+    });
+    writeStream.write(thumbnail);
+    writeStream.end();
+  }
+  
+  if (file.contentType === 'application/pdf') {
+    // Extract text for search indexing
+    const pdfText = await extractPDFText(fileId);
+    await updateDocumentMetadata(fileId, { searchText: pdfText });
+  }
+};</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Use Case 3: Enterprise Resource Planning (ERP) System -->
+        <div class="use-case">
+            <h2>Enterprise Resource Planning (ERP) System</h2>
+            <div class="use-case-description">
+                <p>Comprehensive business management platform integrating HR, finance, inventory, and operations for mid to large-scale enterprises requiring unified data management and workflow automation.</p>
+                <div class="project-details">
+                    <h4>Key Features & MERN Stack Implementation:</h4>
+                    <ul class="feature-list">
+                        <li><strong>MongoDB:</strong> Complex aggregation pipelines for cross-departmental reporting and analytics</li>
+                        <li><strong>Express.js:</strong> Modular API architecture with role-based access control and department-specific endpoints</li>
+                        <li><strong>React:</strong> Dynamic dashboard system with customizable widgets and department-specific interfaces</li>
+                        <li><strong>Node.js:</strong> Background job processing for payroll calculations, inventory updates, and automated reporting</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="project-showcase">
+                <div class="project-header">
+                    <h3>Live ERP Management System</h3>
+                    <button class="refresh-btn" onclick="refreshProject('erp-system')">
+                        <img src="../../assets/images/refresh.svg" alt="Refresh" class="refresh-icon">
+                    </button>
+                </div>
+                <div class="project-preview">
+                    <iframe src="projects/erp-system/index.html" class="project-iframe" id="erp-system-frame"></iframe>
+                </div>
+                <div class="project-description">
+                    <p><strong>How MERN Stack is Used:</strong> MongoDB aggregation framework handles complex cross-departmental data analysis, Express.js provides modular APIs with role-based access, React delivers dynamic dashboards with real-time updates, and Node.js processes automated business calculations and workflows.</p>
+                </div>
+                <div class="project-features">
+                    <span class="feature-tag">HR Management</span>
+                    <span class="feature-tag">Financial Tracking</span>
+                    <span class="feature-tag">Inventory Control</span>
+                    <span class="feature-tag">Project Management</span>
+                    <span class="feature-tag">Business Intelligence</span>
+                </div>
+            </div>
+            
+            <div class="code-section">
+                <div class="code-header">
+                    <span class="code-title">ERP System Architecture</span>
+                    <button class="copy-btn" onclick="copyCode('mern-code-3')">Copy Code</button>
+                </div>
+                <div class="code-scroll">
+                    <pre id="mern-code-3"><code>// MongoDB Aggregation for Cross-Department Analytics
+const getDepartmentMetrics = async (department, dateRange) => {
+  return await Employee.aggregate([
+    { $match: { department, createdAt: { $gte: dateRange.start, $lte: dateRange.end }}},
+    {
+      $lookup: {
+        from: 'projects',
+        localField: '_id',
+        foreignField: 'assignedTo',
+        as: 'projects'
+      }
+    },
+    {
+      $lookup: {
+        from: 'expenses',
+        localField: '_id',
+        foreignField: 'employeeId',
+        as: 'expenses'
+      }
+    },
+    {
+      $group: {
+        _id: '$department',
+        totalEmployees: { $sum: 1 },
+        activeProjects: { $sum: { $size: '$projects' }},
+        totalExpenses: { $sum: { $sum: '$expenses.amount' }},
+        avgSalary: { $avg: '$salary' }
+      }
+    }
+  ]);
+};
+
+// Express.js Role-Based Access Control
+const roleMiddleware = (requiredRoles) => {
+  return (req, res, next) => {
+    const userRoles = req.user.roles;
+    const hasPermission = requiredRoles.some(role => userRoles.includes(role));
+    
+    if (!hasPermission) {
+      return res.status(403).json({ error: 'Insufficient permissions' });
+    }
+    next();
+  };
+};
+
+// Department-specific route protection
+app.get('/api/hr/employees', 
+  authenticateToken, 
+  roleMiddleware(['hr_manager', 'admin']), 
+  getEmployees
+);
+
+app.get('/api/finance/reports', 
+  authenticateToken, 
+  roleMiddleware(['finance_manager', 'admin']), 
+  getFinancialReports
+);
+
+// React Dynamic Dashboard with Widgets
+function ERPDashboard() {
+  const [widgets, setWidgets] = useState([]);
+  const [userRole, setUserRole] = useState('');
+  
+  useEffect(() => {
+    const roleBasedWidgets = {
+      'hr_manager': ['employee-stats', 'attendance-overview', 'payroll-summary'],
+      'finance_manager': ['revenue-chart', 'expense-tracker', 'budget-analysis'],
+      'project_manager': ['project-timeline', 'resource-allocation', 'team-performance'],
+      'admin': ['company-overview', 'department-metrics', 'system-health']
+    };
+    
+    setWidgets(roleBasedWidgets[userRole] || []);
+  }, [userRole]);
+  
+  return (
+    &lt;div className="dashboard-grid"&gt;
+      {widgets.map(widgetType => (
+        &lt;DynamicWidget key={widgetType} type={widgetType} /&gt;
+      ))}
+    &lt;/div&gt;
+  );
+}
+
+// Node.js Automated Payroll Processing
+const cron = require('node-cron');
+
+// Run payroll calculation every month on the 1st at 9 AM
+cron.schedule('0 9 1 * *', async () => {
+  console.log('Starting monthly payroll processing...');
+  
+  const employees = await Employee.find({ status: 'active' });
+  
+  for (const employee of employees) {
+    const attendance = await calculateMonthlyAttendance(employee._id);
+    const overtime = await calculateOvertime(employee._id);
+    const deductions = await calculateDeductions(employee._id);
+    
+    const grossPay = employee.baseSalary + overtime.amount;
+    const netPay = grossPay - deductions.total;
+    
+    await PayrollRecord.create({
+      employeeId: employee._id,
+      month: new Date().getMonth(),
+      year: new Date().getFullYear(),
+      grossPay,
+      netPay,
+      deductions: deductions.breakdown,
+      generatedAt: new Date()
+    });
+    
+    // Send payslip email
+    await sendPayslipEmail(employee.email, payrollData);
+  }
+  
+  console.log('Payroll processing completed');
+});</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Use Case 4: Blockchain-Integrated Supply Chain Platform -->
+        <div class="use-case">
+            <h2>Blockchain-Integrated Supply Chain Platform</h2>
+            <div class="use-case-description">
+                <p>Enterprise supply chain management with blockchain verification, smart contracts, and multi-party collaboration for ensuring transparency, traceability, and automated payments throughout the supply chain.</p>
+                <div class="project-details">
+                    <h4>Key Features & MERN Stack Implementation:</h4>
+                    <ul class="feature-list">
+                        <li><strong>MongoDB:</strong> Hybrid storage combining blockchain hashes with traditional relational data</li>
+                        <li><strong>Express.js:</strong> Web3.js integration for blockchain interaction and smart contract deployment</li>
+                        <li><strong>React:</strong> Complex multi-step workflow forms and blockchain transaction visualization</li>
+                        <li><strong>Node.js:</strong> Cryptocurrency wallet integration and transaction processing with blockchain networks</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="project-showcase">
+                <div class="project-header">
+                    <h3>Live Blockchain Supply Chain Platform</h3>
+                    <button class="refresh-btn" onclick="refreshProject('blockchain-supply')">
+                        <img src="../../assets/images/refresh.svg" alt="Refresh" class="refresh-icon">
+                    </button>
+                </div>
+                <div class="project-preview">
+                    <iframe src="projects/blockchain-supply/index.html" class="project-iframe" id="blockchain-supply-frame"></iframe>
+                </div>
+                <div class="project-description">
+                    <p><strong>How MERN Stack is Used:</strong> MongoDB stores blockchain transaction hashes alongside traditional data, Express.js integrates with Web3.js for smart contract interactions, React provides intuitive blockchain transaction interfaces, and Node.js manages cryptocurrency wallets and automated payments.</p>
+                </div>
+                <div class="project-features">
+                    <span class="feature-tag">Blockchain Verification</span>
+                    <span class="feature-tag">Smart Contracts</span>
+                    <span class="feature-tag">Supply Chain Tracking</span>
+                    <span class="feature-tag">Crypto Payments</span>
+                    <span class="feature-tag">Multi-Party Collaboration</span>
+                </div>
+            </div>
+            
+            <div class="code-section">
+                <div class="code-header">
+                    <span class="code-title">Blockchain Integration Implementation</span>
+                    <button class="copy-btn" onclick="copyCode('mern-code-4')">Copy Code</button>
+                </div>
+                <div class="code-scroll">
+                    <pre id="mern-code-4"><code>// MongoDB Schema for Blockchain Integration
+const supplyChainSchema = new mongoose.Schema({
+  productId: { type: String, required: true, unique: true },
+  manufacturer: { type: String, required: true },
+  currentOwner: { type: String, required: true },
+  status: { type: String, enum: ['manufactured', 'in-transit', 'delivered'] },
+  blockchainHash: { type: String, required: true },
+  smartContractAddress: { type: String },
+  transactions: [{
+    from: String,
+    to: String,
+    timestamp: Date,
+    txHash: String,
+    blockNumber: Number
+  }],
+  metadata: {
+    weight: Number,
+    dimensions: Object,
+    certifications: [String]
+  }
+});
+
+// Express.js Web3 Integration
+const Web3 = require('web3');
+const web3 = new Web3('https://mainnet.infura.io/v3/YOUR_PROJECT_ID');
+
+const deploySmartContract = async (productData) => {
+  const contract = new web3.eth.Contract(SupplyChainABI);
+  
+  const deployment = contract.deploy({
+    data: SupplyChainBytecode,
+    arguments: [productData.productId, productData.manufacturer]
+  });
+  
+  const gas = await deployment.estimateGas();
+  const gasPrice = await web3.eth.getGasPrice();
+  
+  const deployedContract = await deployment.send({
+    from: process.env.ETHEREUM_ADDRESS,
+    gas: gas,
+    gasPrice: gasPrice
+  });
+  
+  return deployedContract.options.address;
+};
+
+// React Blockchain Transaction Component
+function BlockchainTracker({ productId }) {
+  const [transactions, setTransactions] = useState([]);
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    const loadBlockchainData = async () => {
+      try {
+        const response = await fetch(`/api/blockchain/product/${productId}`);
+        const data = await response.json();
+        
+        // Verify blockchain data
+        const web3 = new Web3(window.ethereum);
+        const contract = new web3.eth.Contract(SupplyChainABI, data.contractAddress);
+        
+        const blockchainTransactions = await contract.methods
+          .getProductHistory(productId)
+          .call();
+        
+        setTransactions(blockchainTransactions);
+        setLoading(false);
+      } catch (error) {
+        console.error('Failed to load blockchain data:', error);
+        setLoading(false);
+      }
+    };
+    
+    loadBlockchainData();
+  }, [productId]);
+  
+  const transferOwnership = async (newOwner) => {
+    if (!window.ethereum) {
+      alert('Please install MetaMask to interact with blockchain');
+      return;
+    }
+    
+    const web3 = new Web3(window.ethereum);
+    const accounts = await web3.eth.getAccounts();
+    const contract = new web3.eth.Contract(SupplyChainABI, contractAddress);
+    
+    try {
+      const tx = await contract.methods
+        .transferOwnership(productId, newOwner)
+        .send({ from: accounts[0] });
+      
+      // Update local database
+      await fetch(`/api/products/${productId}/transfer`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          newOwner,
+          txHash: tx.transactionHash,
+          blockNumber: tx.blockNumber
+        })
+      });
+      
+      // Refresh transactions
+      loadBlockchainData();
+    } catch (error) {
+      console.error('Transfer failed:', error);
+    }
+  };
+}
+
+// Node.js Cryptocurrency Payment Processing
+const bitcoin = require('bitcoinjs-lib');
+const axios = require('axios');
+
+const processPayment = async (orderId, amount, recipientAddress) => {
+  try {
+    // Create Bitcoin transaction
+    const network = bitcoin.networks.testnet;
+    const keyPair = bitcoin.ECPair.fromWIF(process.env.BITCOIN_PRIVATE_KEY, network);
+    const { address } = bitcoin.payments.p2pkh({ pubkey: keyPair.publicKey, network });
+    
+    // Get UTXOs
+    const utxos = await getUTXOs(address);
+    const txb = new bitcoin.TransactionBuilder(network);
+    
+    let totalInput = 0;
+    utxos.forEach(utxo => {
+      txb.addInput(utxo.txid, utxo.vout);
+      totalInput += utxo.value;
+    });
+    
+    const fee = 10000; // 0.0001 BTC
+    const change = totalInput - amount - fee;
+    
+    txb.addOutput(recipientAddress, amount);
+    if (change > 0) {
+      txb.addOutput(address, change);
+    }
+    
+    // Sign transaction
+    utxos.forEach((utxo, index) => {
+      txb.sign(index, keyPair);
+    });
+    
+    const tx = txb.build();
+    const txHex = tx.toHex();
+    
+    // Broadcast transaction
+    const response = await axios.post('https://api.blockcypher.com/v1/btc/test3/txs/push', {
+      tx: txHex
+    });
+    
+    // Update order with payment info
+    await Order.findByIdAndUpdate(orderId, {
+      paymentStatus: 'completed',
+      paymentTxHash: response.data.tx.hash,
+      paidAt: new Date()
+    });
+    
+    return response.data.tx.hash;
+  } catch (error) {
+    console.error('Payment processing failed:', error);
+    throw error;
+  }
+};</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../assets/js/main.js"></script>
+    <script src="mern-stack.js"></script>
+</body>
+</html>

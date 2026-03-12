@@ -1,0 +1,158 @@
+/* Tenant Themes */
+
+/* Default Theme */
+[data-tenant="default"] {
+    --tenant-primary: #58a6ff;
+    --tenant-secondary: #3fb950;
+    --tenant-accent: #f85149;
+}
+
+/* TechCorp Theme */
+[data-tenant="techcorp"] {
+    --tenant-primary: #007acc;
+    --tenant-secondary: #00d4aa;
+    --tenant-accent: #ff6b35;
+}
+
+/* HealthPlus Theme */
+[data-tenant="healthplus"] {
+    --tenant-primary: #2e8b57;
+    --tenant-secondary: #20b2aa;
+    --tenant-accent: #ff69b4;
+}
+
+/* FinanceGroup Theme */
+[data-tenant="financegroup"], 
+[data-tenant="finance"] {
+    --tenant-primary: #4169e1;
+    --tenant-secondary: #32cd32;
+    --tenant-accent: #ffd700;
+}
+
+/* Apply Tenant Colors */
+.tenant-themed {
+    --accent-blue: var(--tenant-primary) !important;
+    --accent-green: var(--tenant-secondary) !important;
+    --warning-color: var(--tenant-accent) !important;
+}
+
+/* Tenant Logo */
+.tenant-logo-custom {
+    background: var(--tenant-primary);
+    color: #fff;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.125rem;
+    flex-shrink: 0;
+}
+
+/* Main Button Theming */
+.btn-primary.tenant-themed {
+    background: var(--tenant-primary) !important;
+    border-color: var(--tenant-primary) !important;
+    color: white !important;
+}
+
+.btn-primary.tenant-themed:hover {
+    background: var(--tenant-secondary) !important;
+    border-color: var(--tenant-secondary) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Active Sidebar Link */
+.nav-link.active.tenant-themed {
+    background: var(--tenant-primary) !important;
+    color: #fff !important;
+    border-radius: 6px;
+}
+
+.nav-link.active.tenant-themed:hover,
+.nav-link.active.tenant-themed:focus {
+    background: var(--tenant-secondary) !important;
+    color: #fff !important;
+}
+
+/* Tenant-themed Elements */
+.tenant-themed .stat-card::before {
+    background: linear-gradient(90deg, var(--tenant-primary), var(--tenant-secondary)) !important;
+}
+
+.tenant-themed .metric-card.primary {
+    border-top-color: var(--tenant-primary) !important;
+}
+
+.tenant-themed .search-input:focus {
+    border-color: var(--tenant-primary) !important;
+    box-shadow: 0 0 0 3px rgba(var(--tenant-primary), 0.1) !important;
+}
+
+.tenant-themed .form-input:focus,
+.tenant-themed .form-textarea:focus {
+    border-color: var(--tenant-primary) !important;
+}
+
+.tenant-themed .category-btn.active {
+    background: var(--tenant-primary) !important;
+    border-color: var(--tenant-primary) !important;
+}
+
+.tenant-themed .toggle-label input[type="checkbox"]:checked + .toggle-slider {
+    background: var(--tenant-primary) !important;
+}
+
+/* Tenant Color Variations */
+[data-tenant="techcorp"] .tenant-logo {
+    background: linear-gradient(135deg, #007acc, #00d4aa);
+}
+
+[data-tenant="healthplus"] .tenant-logo {
+    background: linear-gradient(135deg, #2e8b57, #20b2aa);
+}
+
+[data-tenant="financegroup"] .tenant-logo,
+[data-tenant="finance"] .tenant-logo {
+    background: linear-gradient(135deg, #4169e1, #32cd32);
+}
+
+/* Dark Mode Adjustments for Themes */
+.tenant-themed [data-tenant="techcorp"] {
+    --secondary-bg: #0a1419;
+    --tertiary-bg: #0f1e24;
+}
+
+.tenant-themed [data-tenant="healthplus"] {
+    --secondary-bg: #0a1612;
+    --tertiary-bg: #0f201a;
+}
+
+.tenant-themed [data-tenant="financegroup"],
+.tenant-themed [data-tenant="finance"] {
+    --secondary-bg: #0d0f1f;
+    --tertiary-bg: #12152a;
+}
+
+/* Animation for Theme Switching */
+* {
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+/* Tenant Badge Styling */
+.tenant-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.375rem 0.75rem;
+    background: var(--tenant-primary);
+    color: white;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}

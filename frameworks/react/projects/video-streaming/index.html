@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamFlix - Video Streaming Platform</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link rel="stylesheet" href="src/styles/App.css">
+</head>
+<body>
+    <div id="root"></div>
+    
+    <!-- Load components in order -->
+    <script type="text/babel" src="src/context/VideoContext.js"></script>
+    <script type="text/babel" src="src/hooks/useVideoPlayer.js"></script>
+    <script type="text/babel" src="src/hooks/usePlaylist.js"></script>
+    <script type="text/babel" src="src/components/Header.jsx"></script>
+    <script type="text/babel" src="src/components/VideoControls.jsx"></script>
+    <script type="text/babel" src="src/components/VideoPlayer.jsx"></script>
+    <script type="text/babel" src="src/components/VideoCard.jsx"></script>
+    <script type="text/babel" src="src/components/PlaylistSidebar.jsx"></script>
+    <script type="text/babel" src="src/App.jsx"></script>
+</body>
+</html>

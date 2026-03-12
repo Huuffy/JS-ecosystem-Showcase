@@ -1,0 +1,18 @@
+{
+  "name": "video-streaming",
+  "version": "1.0.0",
+  "private": true,
+  "description": "React Video Streaming Platform Demo for JavaScript Frameworks Showcase",
+  "scripts": {
+    "start": "live-server --port=3000",
+    "dev": "live-server --port=3000 --open=/index.html"
+  },
+  "keywords": [
+    "react",
+    "video-streaming",
+    "media-player",
+    "javascript",
+    "showcase"
+  ],
+  "author": "Viraj Bhatia"
+}

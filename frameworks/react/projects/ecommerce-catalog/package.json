@@ -1,0 +1,12 @@
+{
+  "name": "ecommerce-catalog",
+  "version": "1.0.0",
+  "private": true,
+  "description": "React E-Commerce Catalog Demo for JavaScript Frameworks Showcase",
+  "scripts": {
+    "start": "live-server --port=3000",
+    "dev": "live-server --port=3000 --open=/public/"
+  },
+  "keywords": ["react", "ecommerce", "catalog", "javascript", "showcase"],
+  "author": "Viraj Bhatia"
+}

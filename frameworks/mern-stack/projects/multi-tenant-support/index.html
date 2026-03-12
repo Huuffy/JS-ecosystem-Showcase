@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Tenant Support Platform - MERN Stack</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/themes.css">
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    
+    <!-- Tenant Selection Modal -->
+    <div id="tenant-modal" class="modal">
+        <div class="modal-content">
+            <h2>Select Your Organization</h2>
+            <div class="tenant-grid" id="tenant-grid">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+    </div>
+
+    <script type="text/babel" src="assets/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+js-frameworks-showcase/
+├── index.html                           # Homepage
+├── assets/
+│   ├── css/
+│   │   └── main.css                     # Global styles
+│   ├── js/
+│   │   └── main.js                      # Homepage functionality
+│   └── images/
+│       ├── frameworks/                  # Framework logos
+│       └── profile/                     # Your profile photo
+├── frameworks/
+│   ├── react/
+│   │   ├── index.html                   # React showcase page
+│   │   ├── react.css                    # React-specific styles
+│   │   └── projects/                    # Live React projects
+│   │       ├── social-feed/
+│   │       │   ├── index.html
+│   │       │   ├── app.js               # React components
+│   │       │   ├── style.css
+│   │       │   └── server.js            # Backend if needed
+│   │       ├── ecommerce-catalog/
+│   │       ├── video-streaming/
+│   │       ├── trading-dashboard/
+│   │       └── collaborative-editor/
+│   ├── angular/
+│   │   ├── index.html
+│   │   ├── angular.css
+│   │   └── projects/
+│   │       ├── payment-gateway/
+│   │       ├── erp-system/
+│   │       ├── healthcare-records/
+│   │       ├── media-platform/
+│   │       └── freelance-marketplace/
+│   ├── vue/
+│   │   ├── index.html
+│   │   ├── vue.css
+│   │   └── projects/
+│   │       ├── luxury-configurator/
+│   │       ├── electronics-showcase/
+│   │       ├── portfolio-builder/
+│   │       ├── gaming-controls/
+│   │       └── travel-booking/
+│   └── [other frameworks...]
+└── shared/
+    ├── components/                      # Reusable UI components
+    ├── utils/                          # Utility functions
+    └── data/                           # Mock data for projects

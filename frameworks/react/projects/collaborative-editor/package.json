@@ -1,0 +1,35 @@
+{
+  "name": "collaborative-editor",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Industrial-grade real-time collaborative document editor built with React, featuring advanced collaboration tools, version control, and enterprise-level functionality.",
+  "scripts": {
+    "start": "live-server --port=3000",
+    "dev": "live-server --port=3000 --open=/index.html",
+    "build": "echo 'Build process would bundle and optimize the application'",
+    "test": "echo 'Test suite would run comprehensive tests'"
+  },
+  "keywords": [
+    "react",
+    "collaborative-editor",
+    "realtime",
+    "websocket",
+    "crdt",
+    "operational-transform",
+    "saas",
+    "enterprise",
+    "document-editing",
+    "version-control",
+    "comments",
+    "sharing",
+    "showcase"
+  ],
+  "author": "Viraj Bhatia",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/virajbhatia/js-frameworks-showcase"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
