@@ -37,6 +37,9 @@ function copySubProjectSources() {
         'frameworks/react/projects/video-streaming/src',
         'frameworks/react/projects/collaborative-editor/src',
         'frameworks/mern-stack/projects/multi-tenant-support/assets',
+        'frameworks/mern-stack/projects/document-management/assets',
+        'frameworks/mern-stack/projects/erp-system/assets',
+        'frameworks/mern-stack/projects/blockchain-supply/assets',
       ];
 
       // Also copy the root assets directory for absolute-path references

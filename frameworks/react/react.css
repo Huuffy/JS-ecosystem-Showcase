@@ -327,6 +327,13 @@ body {
     margin: 0;
 }
 
+.project-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+}
+
 .refresh-btn {
     background: transparent;
     border: none;

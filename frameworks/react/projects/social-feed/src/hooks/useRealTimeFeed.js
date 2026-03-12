@@ -8,23 +8,42 @@ function useRealTimeFeed(userId) {
     const socketRef = useRef(null);
 
     useEffect(() => {
-        // Initialize Socket.IO connection
-        socketRef.current = io('http://localhost:3001', {
-            transports: ['websocket', 'polling']
-        });
+        // Mock Socket.IO connection for frontend-only demo
+        const mockSocket = {
+            callbacks: {},
+            connected: true,
+            on(event, callback) {
+                this.callbacks[event] = callback;
+            },
+            emit(event, data) {
+                if (event === 'user-joined') {
+                    console.log('Mock emit user-joined:', data);
+                } else if (event === 'create-post') {
+                    // Simulate server response for new post
+                    setTimeout(() => {
+                        const confirmedPost = { ...data, id: Date.now(), isOptimistic: false, reactions: {}, timestamp: new Date().toISOString() };
+                        if (this.callbacks['new-post']) {
+                            this.callbacks['new-post'](confirmedPost);
+                        }
+                    }, 1000);
+                }
+            },
+            disconnect() {
+                this.connected = false;
+            }
+        };
 
-        socketRef.current.on('connect', () => {
+        socketRef.current = mockSocket;
+
+        // Simulate successful connection delay
+        setTimeout(() => {
             setConnected(true);
             socketRef.current.emit('user-joined', {
                 id: userId,
                 name: `User${userId.slice(-4)}`,
                 avatar: `User${userId.slice(-4)}`[0]
             });
-        });
-
-        socketRef.current.on('disconnect', () => {
-            setConnected(false);
-        });
+        }, 500);
 
         socketRef.current.on('initial-posts', (initialPosts) => {
             setPosts(initialPosts);

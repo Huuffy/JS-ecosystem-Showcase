@@ -24,6 +24,7 @@ function refreshProject(projectName) {
         }, 1000);
     }
 }
+window.refreshProject = refreshProject;
 
 function toggleFullscreen(frameId) {
     const iframe = document.getElementById(frameId);
@@ -40,6 +41,7 @@ function toggleFullscreen(frameId) {
         window.open(iframe.src, '_blank');
     }
 }
+window.toggleFullscreen = toggleFullscreen;
 
 function copyCode(codeId) {
     const codeElement = document.getElementById(codeId);
@@ -61,6 +63,7 @@ function copyCode(codeId) {
         alert('Failed to copy code to clipboard');
     });
 }
+window.copyCode = copyCode;
 
 function initializeSyntaxHighlighting() {
     const codeBlocks = document.querySelectorAll('pre code');
