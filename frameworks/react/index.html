@@ -399,45 +399,36 @@
     <!-- Pixel Trail Component -->
     <div class="pixel-trail-container"></div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-jsx.min.js"></script>
     
     <script>
-            // Enhanced cursor tracking for dot grid
-            document.addEventListener('mousemove', (e) => {
-                const x = (e.clientX / window.innerWidth) * 100;
-                const y = (e.clientY / window.innerHeight) * 100;
-                
-                document.documentElement.style.setProperty('--mouse-x', x + '%');
-                document.documentElement.style.setProperty('--mouse-y', y + '%');
-            });
-
-            // Fixed pixel trail with length control and speed adaptation
+            // Pixel trail with throttled updates to prevent lag
             let lastMouseX = 0;
             let lastMouseY = 0;
             let pixelArray = [];
-            const MAX_PIXELS = 25; // Limit to ~500px trail (25 pixels * 20px spacing)
+            const MAX_PIXELS = 12;
+            let rafPending = false;
+            let currentX = 0, currentY = 0;
 
             document.addEventListener('mousemove', (e) => {
-                const container = document.querySelector('.pixel-trail-container');
-                if (!container) return;
+                currentX = e.clientX;
+                currentY = e.clientY;
 
-                // Calculate speed
-                const deltaX = e.clientX - lastMouseX;
-                const deltaY = e.clientY - lastMouseY;
-                const speed = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+                // Update CSS variables for dot grid effect
+                document.documentElement.style.setProperty('--mouse-x', (currentX / window.innerWidth) * 100 + '%');
+                document.documentElement.style.setProperty('--mouse-y', (currentY / window.innerHeight) * 100 + '%');
 
-                // Adjust pixel creation based on speed
-                let pixelsToCreate = 1;
-                if (speed > 50) {
-                    pixelsToCreate = Math.min(3, Math.floor(speed / 25)); // Fast movement = fewer pixels
-                } else if (speed > 10) {
-                    pixelsToCreate = 2; // Medium movement
-                }
+                if (rafPending) return;
+                rafPending = true;
 
-                for (let i = 0; i < pixelsToCreate; i++) {
+                requestAnimationFrame(() => {
+                    rafPending = false;
+                    const container = document.querySelector('.pixel-trail-container');
+                    if (!container) return;
+
                     // Remove oldest pixels if we exceed max length
-                    if (pixelArray.length >= MAX_PIXELS) {
+                    while (pixelArray.length >= MAX_PIXELS) {
                         const oldPixel = pixelArray.shift();
                         if (oldPixel && oldPixel.parentNode) {
                             oldPixel.parentNode.removeChild(oldPixel);
@@ -446,30 +437,24 @@
 
                     const pixel = document.createElement('div');
                     pixel.className = 'pixel-trail-dot';
-                    
-                    // Position with slight randomness
-                    pixel.style.left = e.clientX + (Math.random() - 0.5) * 6 + 'px';
-                    pixel.style.top = e.clientY + (Math.random() - 0.5) * 6 + 'px';
-                    
-                    // Adjust animation duration based on speed
-                    const animationDuration = speed > 30 ? 0.8 : 1.2;
-                    pixel.style.animationDuration = animationDuration + 's';
+                    pixel.style.left = currentX + 'px';
+                    pixel.style.top = currentY + 'px';
                     
                     container.appendChild(pixel);
                     pixelArray.push(pixel);
                     
-                    // Remove pixel after animation with cleanup
+                    // Remove pixel after animation
                     setTimeout(() => {
                         if (pixel.parentNode) {
                             pixel.parentNode.removeChild(pixel);
                             const index = pixelArray.indexOf(pixel);
                             if (index > -1) pixelArray.splice(index, 1);
                         }
-                    }, animationDuration * 1000);
-                }
+                    }, 800);
 
-                lastMouseX = e.clientX;
-                lastMouseY = e.clientY;
+                    lastMouseX = currentX;
+                    lastMouseY = currentY;
+                });
             });
 
             function refreshProject(projectName) {

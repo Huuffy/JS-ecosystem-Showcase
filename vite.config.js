@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite';
-import { resolve, dirname } from 'path';
+import { resolve, dirname, relative, join } from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
 
@@ -13,7 +13,6 @@ function getHtmlPages(dir) {
     if (file.isDirectory() && file.name !== 'node_modules' && file.name !== 'dist' && !file.name.startsWith('.')) {
       Object.assign(pages, getHtmlPages(resolve(dir, file.name)));
     } else if (file.name.endsWith('.html')) {
-        // Create unique names like 'frameworks_react_index'
       const name = resolve(dir, file.name)
         .replace(__dirname, '')
         .replace(/\\/g, '/')
@@ -27,7 +26,47 @@ function getHtmlPages(dir) {
   return pages;
 }
 
+// Custom plugin to copy sub-project source files that Babel loads at runtime
+function copySubProjectSources() {
+  return {
+    name: 'copy-sub-project-sources',
+    closeBundle() {
+      const subProjects = [
+        'frameworks/react/projects/social-feed/src',
+        'frameworks/react/projects/ecommerce-catalog/src',
+        'frameworks/react/projects/video-streaming/src',
+        'frameworks/react/projects/collaborative-editor/src',
+        'frameworks/mern-stack/projects/multi-tenant-support/assets',
+      ];
+
+      for (const subDir of subProjects) {
+        const srcPath = resolve(__dirname, subDir);
+        const destPath = resolve(__dirname, 'dist', subDir);
+        if (fs.existsSync(srcPath)) {
+          copyDirSync(srcPath, destPath);
+          console.log(`  Copied: ${subDir}`);
+        }
+      }
+    }
+  };
+}
+
+function copyDirSync(src, dest) {
+  fs.mkdirSync(dest, { recursive: true });
+  const entries = fs.readdirSync(src, { withFileTypes: true });
+  for (const entry of entries) {
+    const srcPath = resolve(src, entry.name);
+    const destPath = resolve(dest, entry.name);
+    if (entry.isDirectory()) {
+      copyDirSync(srcPath, destPath);
+    } else {
+      fs.copyFileSync(srcPath, destPath);
+    }
+  }
+}
+
 export default defineConfig({
+  plugins: [copySubProjectSources()],
   build: {
     rollupOptions: {
       input: getHtmlPages(__dirname)
