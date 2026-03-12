@@ -39,12 +39,26 @@ function copySubProjectSources() {
         'frameworks/mern-stack/projects/multi-tenant-support/assets',
       ];
 
+      // Also copy the root assets directory for absolute-path references
+      const staticDirs = [
+        'assets',
+      ];
+
       for (const subDir of subProjects) {
         const srcPath = resolve(__dirname, subDir);
         const destPath = resolve(__dirname, 'dist', subDir);
         if (fs.existsSync(srcPath)) {
           copyDirSync(srcPath, destPath);
           console.log(`  Copied: ${subDir}`);
+        }
+      }
+
+      for (const dir of staticDirs) {
+        const srcPath = resolve(__dirname, dir);
+        const destPath = resolve(__dirname, 'dist', dir);
+        if (fs.existsSync(srcPath)) {
+          copyDirSync(srcPath, destPath);
+          console.log(`  Copied static: ${dir}`);
         }
       }
     }
